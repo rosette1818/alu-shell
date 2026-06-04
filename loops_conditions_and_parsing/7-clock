@@ -5,7 +5,7 @@ while (( hour <= 12 ))
 do
    echo "Hour: $hour"
    minute=1
-   while (( minute <= 60 ))
+   while (( minute <= 59 ))
    do
       echo "$minute"
       minute=$((minute + 1))
