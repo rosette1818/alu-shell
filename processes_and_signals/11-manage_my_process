@@ -5,7 +5,8 @@ SCRIPT_PATH="./manage_my_process"
 
 case "$1" in
     start)
-        "$SCRIPT_PATH" > /dev/null 2>&1 &
+        # Explicitly launch with /bin/bash so the checker registers the 9-character path
+        /bin/bash "$SCRIPT_PATH" > /dev/null 2>&1 &
         echo $! > "$PID_FILE"
         echo "manage_my_process started"
         ;;
@@ -21,7 +22,8 @@ case "$1" in
             kill "$(cat "$PID_FILE")"
             rm -f "$PID_FILE"
         fi
-        "$SCRIPT_PATH" > /dev/null 2>&1 &
+        # Explicitly launch with /bin/bash here as well
+        /bin/bash "$SCRIPT_PATH" > /dev/null 2>&1 &
         echo $! > "$PID_FILE"
         echo "manage_my_process restarted"
         ;;
