@@ -1,19 +1,16 @@
-#!/usr/bin/env bash
-#Task 11
+#!/bin/bash
+#task 11
 PID_FILE="/var/run/my_process.pid"
-SCRIPT_PATH="$(dirname "$0")/manage_my_process"
+SCRIPT_PATH="./manage_my_process"
 
 case "$1" in
     start)
-        # Run the worker script in the background and redirect output/errors away
         "$SCRIPT_PATH" > /dev/null 2>&1 &
-        # Save the background process PID ($!) to the pidfile
         echo $! > "$PID_FILE"
         echo "manage_my_process started"
         ;;
     stop)
         if [ -f "$PID_FILE" ]; then
-            # Kill the process using the saved PID
             kill "$(cat "$PID_FILE")"
             rm -f "$PID_FILE"
         fi
