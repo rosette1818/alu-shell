@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+#Task 10
+PID_FILE="/var/run/myscript.pid"
+
+# Write the script's PID into the specified file
+echo $$ > "$PID_FILE"
+
+# Function for SIGTERM
+handle_sigterm() {
+    echo "I hate the kill command"
+    rm -f "$PID_FILE"
+    exit 0
+}
+
+# Function for SIGINT (Ctrl+C)
+handle_sigint() {
+    echo "Y U no love me?!"
+}
+
+# Function for SIGQUIT (Ctrl+\)
+handle_sigquit() {
+    rm -f "$PID_FILE"
+    exit 0
+}
+
+# Assign functions to their respective signals
+trap handle_sigterm SIGTERM
+trap handle_sigint SIGINT
+trap handle_sigquit SIGQUIT
+
+# Infinite loop
+while true
+do
+    echo "To infinity and beyond"
+    sleep 2
+done
+
