@@ -1,12 +1,13 @@
+
 #!/usr/bin/env bash
-#task 11
+# task 11
 PID_FILE="/var/run/my_process.pid"
-SCRIPT_PATH="./manage_my_process"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SCRIPT_PATH="$SCRIPT_DIR/manage_my_process"
 
 case "$1" in
     start)
-        # Explicitly launch with /bin/bash so the checker registers the 9-character path
-        /bin/bash "$SCRIPT_PATH" > /dev/null 2>&1 &
+        "$SCRIPT_PATH" &
         echo $! > "$PID_FILE"
         echo "manage_my_process started"
         ;;
@@ -22,8 +23,7 @@ case "$1" in
             kill "$(cat "$PID_FILE")"
             rm -f "$PID_FILE"
         fi
-        # Explicitly launch with /bin/bash here as well
-        /bin/bash "$SCRIPT_PATH" > /dev/null 2>&1 &
+        "$SCRIPT_PATH" &
         echo $! > "$PID_FILE"
         echo "manage_my_process restarted"
         ;;
@@ -32,4 +32,3 @@ case "$1" in
         exit 1
         ;;
 esac
-
