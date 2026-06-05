@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #task 11
 PID_FILE="/var/run/my_process.pid"
 SCRIPT_PATH="./manage_my_process"
