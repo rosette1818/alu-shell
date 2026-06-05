@@ -4,7 +4,7 @@ PID_FILE="/var/run/my_process.pid"
 
 case "$1" in
     start)
-        ./manage_my_process &
+        /bin/bash manage_my_process &
         echo $! > "$PID_FILE"
         echo "manage_my_process started"
         ;;
@@ -16,7 +16,7 @@ case "$1" in
     restart)
         kill "$(cat "$PID_FILE")"
         rm -f "$PID_FILE"
-        ./manage_my_process &
+        /bin/bash manage_my_process &
         echo $! > "$PID_FILE"
         echo "manage_my_process restarted"
         ;;
